@@ -1,0 +1,25 @@
+Para poder usar el programa hay que realizar los siguientes pasos:
+
+1.- Crear la base de datos.
+	-> Para ello, en su postgresql cree una base de datos con el nombre: "Tramites_de_iglesia"
+
+2.- Crear las tablas y las relaciones.
+	-> Para ello, habra la carpeta "base de datos" y en su postgresql ejecute las sentecias del archivo "Script PostgreSQL v8.sql"
+
+3. Insertar datos de prueba en la base de datos.
+	-> Para ello, habra la carpeta "base de datos" y en su postgresql ejecute las sentecias del archivo "Ingreso de datos - SQL.sql"
+
+4. Configurar el usuario y la contraseña de acceso a la Base de Datos.
+	-> Para ello, muevase a la ruta "src/documentos" y modifique los valores del json "data.json".
+	
+	Nota: se retorna al usuario y contraseña por defecto si elimina el archivo.
+	
+
+Sugerencias:
+
+1.- ¿El ejecutable .jar no habre?
+	a) Intente moverlo a la carpeta principal del proyecto ("Tramites de iglesia")
+	b) Ejecute el archivo "Ejecutable (opcional).bat"
+
+2.- ¿No puedo eliminar el proyecto?
+	-> Habra el Administrador de tareas y finalice la siguiente tarea: Java(TM) Platform SE binary
