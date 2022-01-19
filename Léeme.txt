@@ -17,7 +17,7 @@ Para poder usar el programa hay que realizar los siguientes pasos:
 
 Sugerencias:
 
-1.- ¿El ejecutable .jar no habre?
+1.- ¿El ejecutable .jar no abre?
 	a) Intente moverlo a la carpeta principal del proyecto ("Tramites de iglesia")
 	b) Ejecute el archivo "Ejecutable (opcional).bat"
 

@@ -102,7 +102,6 @@ public class Sacramentos extends javax.swing.JFrame {
         table_tipos_sacramentos = new javax.swing.JTable();
         jScroll_table_3 = new javax.swing.JScrollPane();
         table_sacramentos_celebrados = new javax.swing.JTable();
-        btn_rollback = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Sacramentos");
@@ -302,27 +301,7 @@ public class Sacramentos extends javax.swing.JFrame {
         table_sacramentos_celebrados.setRowHeight(29);
         jScroll_table_3.setViewportView(table_sacramentos_celebrados);
 
-        background.add(jScroll_table_3, new org.netbeans.lib.awtextra.AbsoluteConstraints(355, 367, 573, 205));
-
-        btn_rollback.setBackground(new java.awt.Color(10, 145, 171));
-        btn_rollback.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
-        btn_rollback.setForeground(new java.awt.Color(255, 255, 255));
-        btn_rollback.setText("Ejecutar Rollback");
-        btn_rollback.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(6, 84, 113), 2, true));
-        btn_rollback.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btn_rollback.setFocusable(false);
-        btn_rollback.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_rollbackMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btn_rollbackMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btn_rollbackMouseExited(evt);
-            }
-        });
-        background.add(btn_rollback, new org.netbeans.lib.awtextra.AbsoluteConstraints(56, 536, 266, 35));
+        background.add(jScroll_table_3, new org.netbeans.lib.awtextra.AbsoluteConstraints(355, 367, 573, 150));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -334,7 +313,9 @@ public class Sacramentos extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(background, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(background, javax.swing.GroupLayout.PREFERRED_SIZE, 598, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -352,18 +333,15 @@ public class Sacramentos extends javax.swing.JFrame {
             config.setWarningMsg("Faltan por rellenar campos obligatorios!");
         } else {
             //Formatear los datos
-            id_sacramento = "\'" + id_sacramento + "\'";
             id_sacerdote = "\'" + id_sacerdote + "\'";
             id_tipo = "\'" + id_tipo + "\'";
             fecha_sacramento = "\'" + fecha_sacramento + "\'";
             //Agregamos el registro de la base de datos
             try {
-                String sql = "begin; \n insert into sacramento values " +
-                        "(" + id_sacramento + "," + id_sacerdote + "," + id_tipo + "," + fecha_sacramento + "); \n" + 
-                        "commit;";
-                System.out.println(sql);
+                String sql = "select primerTransaccion (" + id_sacramento + ", " + 
+                        id_sacerdote + ", " + id_tipo + ", " + fecha_sacramento + ");";
                 java.sql.Statement statement = conexion.createStatement();
-                statement.executeUpdate(sql);
+                ResultSet rs = statement.executeQuery(sql);
             } catch (SQLException ex) {
                 Configuraciones.setWarningMsg("" + ex.getMessage());
             }
@@ -398,24 +376,6 @@ public class Sacramentos extends javax.swing.JFrame {
     private void btn_refrescar_tablasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_refrescar_tablasMouseExited
         btn_refrescar_tablas.setBackground(new Color(10,145,171));
     }//GEN-LAST:event_btn_refrescar_tablasMouseExited
-
-    private void btn_rollbackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_rollbackMouseClicked
-        try {
-            String sql = "rollback;";
-            java.sql.Statement statement = conexion.createStatement();
-            statement.executeUpdate(sql);
-        } catch (SQLException ex) {
-            Configuraciones.setWarningMsg("" + ex.getMessage());
-        }
-    }//GEN-LAST:event_btn_rollbackMouseClicked
-
-    private void btn_rollbackMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_rollbackMouseEntered
-        btn_rollback.setBackground(new Color(10,163,204));
-    }//GEN-LAST:event_btn_rollbackMouseEntered
-
-    private void btn_rollbackMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_rollbackMouseExited
-        btn_rollback.setBackground(new Color(10,145,171));
-    }//GEN-LAST:event_btn_rollbackMouseExited
     
     public void consultarSacerdotes() throws SQLException{
         try {
@@ -513,7 +473,6 @@ public class Sacramentos extends javax.swing.JFrame {
     private javax.swing.JPanel background;
     private javax.swing.JButton btn_refrescar_tablas;
     private javax.swing.JButton btn_registrar;
-    private javax.swing.JButton btn_rollback;
     private javax.swing.JTextField fecha_sacramento_input;
     private javax.swing.JSeparator fecha_sacramento_separator;
     private javax.swing.JLabel fecha_sacramento_text;
